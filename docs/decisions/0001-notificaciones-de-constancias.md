@@ -74,3 +74,19 @@ En una implementación futura se realizarían las siguientes pruebas y revisione
 ## More Information
 
 La decisión se mantiene como propuesta académica y podrá revisarse si cambian las condiciones de integración con el proveedor externo o los requisitos de notificación.
+
+### Revisión 1. Cambio en el proveedor de notificaciones
+
+El proveedor externo de notificaciones modificó su interfaz de comunicación y la forma en que reporta los errores de envío.
+
+Este cambio afecta principalmente al componente independiente encargado de procesar las notificaciones y al componente de integración que se comunica con el proveedor, ya que deben adaptarse para interpretar correctamente la nueva interfaz y sus respuestas de error.
+
+La alternativa B permite localizar el cambio en el componente de integración externa, evitando modificar directamente el proceso de generación y almacenamiento de constancias. Por esta razón, la decisión original se mantiene y no es necesario seleccionar una alternativa diferente.
+
+Sin embargo, se identifica el riesgo de interpretar incorrectamente los nuevos errores, provocar reintentos innecesarios o dejar notificaciones pendientes sin un procesamiento adecuado.
+
+Como consecuencia, será necesario actualizar el mecanismo de interpretación de errores y revisar las condiciones bajo las cuales se realizan los reintentos.
+
+Se agrega una nueva comprobación: realizar pruebas de integración con los diferentes tipos de respuesta y error de la nueva interfaz del proveedor, verificando que los estados de las notificaciones se actualicen correctamente y que los reintentos no generen solicitudes duplicadas.
+
+La decisión podrá evaluarse nuevamente si los cambios del proveedor introducen restricciones que afecten la viabilidad de esta integración.
